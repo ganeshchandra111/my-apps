@@ -1,6 +1,6 @@
 # my-apps
 
-here are several simple and doable project ideas for React Native apps, along with unique aspects of each project:
+These are some ideas that is given by chatGPT for me to practice
 
 ### 1. **Calculator App**
    **Unique Aspects:**
