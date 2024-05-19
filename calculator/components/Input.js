@@ -4,19 +4,18 @@ import { View,Text,StyleSheet } from 'react-native'
 export const Input = ({inputvalue}) => {
   return (
     <View style={styles.inputStyle}>
-        <Text>{inputvalue}</Text>
+        <Text style={{fontSize:40}}>{inputvalue}</Text>
     </View>
   )
 }
 const styles = StyleSheet.create({
   inputStyle:{
-    borderWidth:1,
+    flex:1,
+    borderWidth:0.5,
     borderRadius:5,
-    width:300,
-    height:50,
     justifyContent:'center',
-    padding:10,
-    margin:15,
+    backgroundColor:'#f5f5f5',
+    padding:5,
   }
 
 })
