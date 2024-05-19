@@ -4,10 +4,18 @@ import { View,Text ,StyleSheet} from 'react-native';
 
 import { Input } from './Input';
 import { Btn } from './Btn';
+import { History } from './History';
+
+import { Colours } from '../Utils/Colours';
 
 
 export const Cal = () => {
     let [displayValue,setDisplayValue] = useState('')
+    let [openHistory,setOpenHistory] = useState(false)
+
+    const handelOpenHistory = () => {
+        openHistory ? setOpenHistory(false) : setOpenHistory(true)
+    }
 
     const appendValues = (value) => {
         if (displayValue === 'Error'){
@@ -40,7 +48,7 @@ export const Cal = () => {
         }catch(error){return}
     }
 
-    return (
+    const mainCalBody = () => (
         <View style={styles.mainbody}>
             <View style={styles.screen}>
                 <Input inputvalue={displayValue}/>
@@ -48,8 +56,8 @@ export const Cal = () => {
             <View style={styles.lowerBody}>
                 <View style={styles.btns}>
                     <View style={styles.row}>
+                        <Btn value={'H'} onPressEvent={()=>handelOpenHistory()}/>
                         <Btn value={'CLR'} onPressEvent={()=>clear()}/>
-                        <Btn value={'~'} onPressEvent={()=>{}}/>
                         <Btn value={'Back'} onPressEvent={()=>deleteLastChar()}/>
                         <Btn value={'+'} onPressEvent={()=>appendValues('+')}/>
                     </View>
@@ -83,14 +91,24 @@ export const Cal = () => {
                 </View>
             </View>
         </View>
-        
+    )
+
+    const historyPannel = () => (
+        <History onPressEvent={() => handelOpenHistory()}/>
+    )
+
+    return (
+        <View>
+            {openHistory ? historyPannel() : mainCalBody()}
+        </View>
     )
 }
+
 
 const styles = StyleSheet.create({
     mainbody:{
         flex:1,
-        backgroundColor:'#f5f5f5',
+        backgroundColor:Colours.darkTheme,
         flexDirection:'column',
         padding:20,
         justifyContent:'space-around',
@@ -106,12 +124,16 @@ const styles = StyleSheet.create({
     lowerBody:{
         flex:0.5,
         padding:10,
-        backgroundColor:'#f5f5f5',
+        backgroundColor:Colours.darkTheme,
+        justifyContent:'center',
+        alignItems:'center',
+        marginLeft:15,
     },
     btns: {
         flex: 1,
         justifyContent: 'space-between',
-        backgroundColor: '#f5f5f5',
+        alignItems:'center',
+        backgroundColor: Colours.darkTheme,
     },
     row: {
         flexDirection: 'row',
