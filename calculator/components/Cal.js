@@ -1,6 +1,7 @@
-import { useState } from 'react';
+import { useState ,useEffect} from 'react';
 
 import { View,Text ,StyleSheet} from 'react-native';
+import AsyncStorage from 'react-native';
 
 import { Input } from './Input';
 import { Btn } from './Btn';
@@ -10,16 +11,36 @@ import { CalculatorBody } from './CalculatorBody';
 import { Colours } from '../Utils/Colours';
 
 export const Cal = () => {
-    let [openHistory,setOpenHistory] = useState(true)
-    const [historyData, setHistoryData] = useState('');
+    let [openHistory,setOpenHistory] = useState(false)
+    const [historyData, setHistoryData] = useState([]);
 
     const handelOpenHistory = () => {
         openHistory ? setOpenHistory(false) : setOpenHistory(true)
     }
 
+    useEffect(()=>{
+      const loadData = async () =>{
+        try{
+          const storedHistory = await AsyncStorage.getItem('calHis');
+          setHistoryData(JSON.parse(storedHistory));
+        }catch(err){
+          console.debug("unable to get the data ")
+        }
+      };
+
+      loadData();
+    },[])
+
     const handleHistoryUpdate = (result) => {
-        setHistoryData(result);
+      const updatedHistory = [...historyData, String(result)];
+      setHistoryData(updatedHistory);
+
+      try{
+        AsyncStorage.setItem('calHis',JSON.stringify(updatedHistory))
+      }catch(error){console.debug('something went worng')}
     };
+
+    
 
     return (
         <View style={styles.container}>
@@ -40,7 +61,7 @@ export const Cal = () => {
 const styles = StyleSheet.create({
     hisBtn:{
         position: 'absolute',
-        top: 30,
+        top: 13,
         right: 10,
         zIndex:100,
         flex:1,

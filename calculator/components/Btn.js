@@ -19,7 +19,6 @@ const styles = StyleSheet.create({
     borderColor:Colours.darkThemeMainColour,
     borderWidth:2,
     height:50,
-    width:60,
     justifyContent: 'center',
     alignItems: 'center',
     padding: 10,

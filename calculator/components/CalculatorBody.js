@@ -1,6 +1,6 @@
 import { useState } from 'react';
 
-import { View,Text ,StyleSheet} from 'react-native';
+import { View,Text ,StyleSheet, ScrollView} from 'react-native';
 
 import { Input } from './Input';
 import { Btn } from './Btn';
@@ -13,21 +13,22 @@ export const CalculatorBody = ({onCalculate}) => {
     let [displayValue,setDisplayValue] = useState('')
 
     const appendValues = (value) => {
-        
+
         if (displayValue === 'Error'){
             setDisplayValue(value.toString())
         }else{
             setDisplayValue(displayValue.toString() + value)
-        }  
+        }
 
     }
 
     const handelCalculations = () => {
         try{
-            const result = eval(displayValue).toString()
             
+            const result = eval(displayValue).toString()
+            onCalculate(displayValue + " = " + result)
             setDisplayValue(result)
-            onCalculate(result)
+            
         }
         catch(error){
             setDisplayValue('Error')
@@ -104,7 +105,7 @@ const styles = StyleSheet.create({
     },
     screen:{
         flex:0.2,
-        width:350,
+        width:280,
         justifyContent:'center',
         marginBottom:10,
         marginTop:-10,
