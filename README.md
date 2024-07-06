@@ -1,6 +1,5 @@
 # my-apps
 
-These are some ideas that is given by chatGPT for me to practice
 
 ### 1. **Calculator App**
    **Unique Aspects:**
